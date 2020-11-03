@@ -140,14 +140,14 @@ impl Account {
     }
 
     // Place a LIMIT order - BUY
-    pub fn limit_buy<S, F>(&self, symbol: S, qty: F, price: f64) -> Result<Transaction>
+    pub fn limit_buy<S, F>(&self, symbol: S, qty: f64, price: f64) -> Result<Transaction>
     where
         S: Into<String>,
         F: Into<f64>,
     {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty as f64),
+            qty: Some(qty),
             quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_BUY.to_string(),
@@ -165,14 +165,14 @@ impl Account {
     /// Place a test limit order - BUY
     ///
     /// This order is sandboxed: it is validated, but not sent to the matching engine.
-    pub fn test_limit_buy<S, F>(&self, symbol: S, qty: F, price: f64) -> Result<()>
+    pub fn test_limit_buy<S, F>(&self, symbol: S, qty: f64, price: f64) -> Result<()>
     where
         S: Into<String>,
         F: Into<f64>,
     {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty as f64),
+            qty: Some(qty),
             quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_BUY.to_string(),
@@ -188,14 +188,14 @@ impl Account {
     }
 
     // Place a LIMIT order - SELL
-    pub fn limit_sell<S, F>(&self, symbol: S, qty: F, price: f64) -> Result<Transaction>
+    pub fn limit_sell<S, F>(&self, symbol: S, qty: f64, price: f64) -> Result<Transaction>
     where
         S: Into<String>,
         F: Into<f64>,
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty as f64),
+            qty: Some(qty),
             quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_SELL.to_string(),
@@ -213,14 +213,14 @@ impl Account {
     /// Place a test LIMIT order - SELL
     ///
     /// This order is sandboxed: it is validated, but not sent to the matching engine.
-    pub fn test_limit_sell<S, F>(&self, symbol: S, qty: F, price: f64) -> Result<()>
+    pub fn test_limit_sell<S, F>(&self, symbol: S, qty: f64, price: f64) -> Result<()>
     where
         S: Into<String>,
         F: Into<f64>,
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty as f64),
+            qty: Some(qty),
             quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_SELL.to_string(),
@@ -236,7 +236,7 @@ impl Account {
     }
 
     // Place a MARKET order - BUY
-    pub fn market_buy<S, F>(&self, symbol: S, quote_order_qty: F) -> Result<Transaction>
+    pub fn market_buy<S, F>(&self, symbol: S, quote_order_qty: f64) -> Result<Transaction>
     where
         S: Into<String>,
         F: Into<f64>,
@@ -261,14 +261,14 @@ impl Account {
     /// Place a test MARKET order - BUY
     ///
     /// This order is sandboxed: it is validated, but not sent to the matching engine.
-    pub fn test_market_buy<S, F>(&self, symbol: S, qty: F) -> Result<()>
+    pub fn test_market_buy<S, F>(&self, symbol: S, qty: f64) -> Result<()>
     where
         S: Into<String>,
         F: Into<f64>,
     {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty as f64),
+            qty: Some(qty),
             quote_order_qty: Some(0.0),
             price: 0.0,
             order_side: ORDER_SIDE_BUY.to_string(),
@@ -284,14 +284,14 @@ impl Account {
     }
 
     // Place a MARKET order - SELL
-    pub fn market_sell<S, F>(&self, symbol: S, qty: F) -> Result<Transaction>
+    pub fn market_sell<S, F>(&self, symbol: S, qty: f64) -> Result<Transaction>
     where
         S: Into<String>,
         F: Into<f64>,
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty as f64),
+            qty: Some(qty),
             quote_order_qty: Some(0.0),
             price: 0.0,
             order_side: ORDER_SIDE_SELL.to_string(),
@@ -309,14 +309,14 @@ impl Account {
     /// Place a test MARKET order - SELL
     ///
     /// This order is sandboxed: it is validated, but not sent to the matching engine.
-    pub fn test_market_sell<S, F>(&self, symbol: S, qty: F) -> Result<()>
+    pub fn test_market_sell<S, F>(&self, symbol: S, qty: f64) -> Result<()>
     where
         S: Into<String>,
         F: Into<f64>,
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty as f64),
+            qty: Some(qty),
             quote_order_qty: Some(0.0),
             price: 0.0,
             order_side: ORDER_SIDE_SELL.to_string(),
