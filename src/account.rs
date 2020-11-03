@@ -26,7 +26,8 @@ pub struct Account {
 
 struct OrderRequest {
     pub symbol: String,
-    pub qty: f64,
+    pub qty: Option<f64>,
+    pub quote_order_qty: Option<f64>,
     pub price: f64,
     pub order_side: String,
     pub order_type: String,
@@ -146,7 +147,8 @@ impl Account {
     {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: qty.into(),
+            qty: Some(qty),
+            quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_BUY.to_string(),
             order_type: ORDER_TYPE_LIMIT.to_string(),
@@ -170,7 +172,8 @@ impl Account {
     {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: qty.into(),
+            qty: Some(qty),
+            quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_BUY.to_string(),
             order_type: ORDER_TYPE_LIMIT.to_string(),
@@ -192,7 +195,8 @@ impl Account {
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: qty.into(),
+            qty: Some(qty),
+            quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_SELL.to_string(),
             order_type: ORDER_TYPE_LIMIT.to_string(),
@@ -216,7 +220,8 @@ impl Account {
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: qty.into(),
+            qty: Some(qty),
+            quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_SELL.to_string(),
             order_type: ORDER_TYPE_LIMIT.to_string(),
@@ -231,14 +236,15 @@ impl Account {
     }
 
     // Place a MARKET order - BUY
-    pub fn market_buy<S, F>(&self, symbol: S, qty: F) -> Result<Transaction>
+    pub fn market_buy<S, F>(&self, symbol: S, quote_order_qty: F) -> Result<Transaction>
     where
         S: Into<String>,
         F: Into<f64>,
     {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: qty.into(),
+            qty: None,
+            quote_order_qty,
             price: 0.0,
             order_side: ORDER_SIDE_BUY.to_string(),
             order_type: ORDER_TYPE_MARKET.to_string(),
@@ -262,7 +268,8 @@ impl Account {
     {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: qty.into(),
+            qty: Some(qty),
+            quote_order_qty: Some(0.0),
             price: 0.0,
             order_side: ORDER_SIDE_BUY.to_string(),
             order_type: ORDER_TYPE_MARKET.to_string(),
@@ -284,7 +291,8 @@ impl Account {
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: qty.into(),
+            qty: Some(qty),
+            quote_order_qty: Some(0.0),
             price: 0.0,
             order_side: ORDER_SIDE_SELL.to_string(),
             order_type: ORDER_TYPE_MARKET.to_string(),
@@ -308,7 +316,8 @@ impl Account {
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: qty.into(),
+            qty: Some(qty),
+            quote_order_qty: Some(0.0),
             price: 0.0,
             order_side: ORDER_SIDE_SELL.to_string(),
             order_type: ORDER_TYPE_MARKET.to_string(),
@@ -377,7 +386,11 @@ impl Account {
         order_parameters.insert("symbol".into(), order.symbol);
         order_parameters.insert("side".into(), order.order_side);
         order_parameters.insert("type".into(), order.order_type);
-        order_parameters.insert("quantity".into(), order.qty.to_string());
+        if order.quote_order_qty.unwrap() > 0.0 {
+            order_parameters.insert("quoteOrderQty".into(), order.quote_order_qty.unwrap().to_string());
+        } else {
+            order_parameters.insert("quantity".into(), order.qty.unwrap().to_string());
+        }
 
         if order.price != 0.0 {
             order_parameters.insert("price".into(), order.price.to_string());
