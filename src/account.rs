@@ -244,7 +244,7 @@ impl Account {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
             qty: None,
-            quote_order_qty,
+            quote_order_qty: Some(quote_order_qty),
             price: 0.0,
             order_side: ORDER_SIDE_BUY.to_string(),
             order_type: ORDER_TYPE_MARKET.to_string(),
