@@ -147,7 +147,7 @@ impl Account {
     {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty),
+            qty: Some(qty as f64),
             quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_BUY.to_string(),
@@ -172,7 +172,7 @@ impl Account {
     {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty),
+            qty: Some(qty as f64),
             quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_BUY.to_string(),
@@ -195,7 +195,7 @@ impl Account {
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty),
+            qty: Some(qty as f64),
             quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_SELL.to_string(),
@@ -220,7 +220,7 @@ impl Account {
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty),
+            qty: Some(qty as f64),
             quote_order_qty: Some(0.0),
             price,
             order_side: ORDER_SIDE_SELL.to_string(),
@@ -268,7 +268,7 @@ impl Account {
     {
         let buy: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty),
+            qty: Some(qty as f64),
             quote_order_qty: Some(0.0),
             price: 0.0,
             order_side: ORDER_SIDE_BUY.to_string(),
@@ -291,7 +291,7 @@ impl Account {
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty),
+            qty: Some(qty as f64),
             quote_order_qty: Some(0.0),
             price: 0.0,
             order_side: ORDER_SIDE_SELL.to_string(),
@@ -316,7 +316,7 @@ impl Account {
     {
         let sell: OrderRequest = OrderRequest {
             symbol: symbol.into(),
-            qty: Some(qty),
+            qty: Some(qty as f64),
             quote_order_qty: Some(0.0),
             price: 0.0,
             order_side: ORDER_SIDE_SELL.to_string(),
